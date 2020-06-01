@@ -8,31 +8,51 @@
   </head>
   <body>
     <header>
-      <h1>Hogwarts students</h1>
+      <h1>Hogwart's Batch 1991</h1>
     </header>
     <div class="filter">
       <div class="sort"></div>
       <div class="search"></div>
     </div>
     <main>
-      <table>
-        <tr>
-          <th>First name</th>
-          <th>Last name</th>
-        </tr>
-        <tr>
-          <td>John</td>
-          <td>Doe</td>
-        </tr>
-        <tr>
-          <td>Jane</td>
-          <td>Doe</td>
-        </tr>
-      </table>
+      <div class="grid">
+        <span>
+          <strong>Full Name</strong>
+        </span>
+        <span>
+          <strong>House</strong>
+        </span>
+        <span>
+          <strong>See More</strong>
+        </span>
+
+        <template class="table">
+          <span class="cloneName"></span>
+          <span class="cloneHouse"></span>
+          <span class="cloneSeeMore">
+            <button class="detail-btn">Details</button>
+          </span>
+        </template>
+      </div>
     </main>
     <footer>
       ©Susan Khatri 2020
     </footer>
+
+    <!-- MODAL -->
+    <div class="modal-background hide">
+      <div class="modal-content" data-theme="">
+        <img src="" alt="house" class="crest-image" />
+        <img src="" alt="student" class="student-image" />
+        <p class="modal-name">name</p>
+        <p class="modal-blood">Blood</p>
+        <p class="modal-nickname"><span></span></p>
+        <p class="modal-gender">Gender : <span></span></p>
+        <button class="prefect">Make Prefect</button>
+        <button class="expel">Expel</button>
+        <button class="inquis">Add to Inquisitorial</button>
+      </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>

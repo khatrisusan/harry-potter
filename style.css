@@ -1,0 +1,140 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: grey;
+  /*  --primary-img: url(imgs/hufflepuff.jpg); */
+  --theme-gryffindor-color: red;
+  --theme-hufflepuff-color: yellow;
+  --theme-ravenclaw-color: blue;
+  --theme-slytherin-color: green;
+}
+
+.modal-background[data-theme="Gryffindor"] {
+  --primary-color: red;
+  /*   --primary-img: url(imgs/gryffindor.jpg); */
+}
+.modal-background[data-theme="Hufflepuff"] {
+  --primary-color: yellow;
+  /*   --primary-img: url(imgs/hufflepuff.jpg); */
+}
+
+.modal-background[data-theme="Ravenclaw"] {
+  --primary-color: blue;
+  /*  --primary-img: url(imgs/ravenclaw.jpg); */
+}
+
+.modal-background[data-theme="Slytherin"] {
+  --primary-color: green;
+  /*  --primary-img: url(imgs/slytherin.jpg); */
+}
+
+body {
+  width: 90%;
+  padding-left: 5%;
+}
+header > h1 {
+  text-align: center;
+}
+.hide {
+  display: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.grid > span {
+  padding: 8px 4px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+/******************************* 
+MODAL **************************/
+.hide {
+  display: none;
+}
+.modal-background {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modal-content {
+  /*  background-image: url(imgs/Hufflepuff.png); */
+  background-image: var(--primary-img);
+  background-color: var(--primary-color);
+  background-repeat: no-repeat;
+  background-size: auto;
+  border: 1.5px solid #fff;
+  margin: 0 auto;
+  padding: 2.5em;
+  max-width: 100%;
+  width: 700px;
+  height: 300px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+.modal-name {
+  display: block;
+  float: right;
+  font-family: "Parry Hotter", "Times New Roman";
+  color: #fff;
+  font-size: 3em;
+  margin-right: 20px;
+}
+.modal-description {
+  display: block;
+  text-align: right;
+  font-family: "Avenir", "Times New Roman";
+  color: #fff;
+  font-size: 2.5em;
+  margin-right: 20px;
+  margin-left: 300px;
+}
+p.modal-name {
+  text-align: center;
+  color: blueviolet;
+  font-size: 2.5rem;
+}
+p.modal-house {
+  color: crimson;
+  font-size: 3vw;
+}
+img.student-image {
+  border: 1px solid #3d373a;
+  border-radius: 20px;
+}
+img.crest-image {
+  float: right;
+  border: 1px solid #3d373a;
+  border-radius: 20px;
+  width: 150px;
+  height: auto;
+}
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+button {
+  padding: 4px 8px;
+  border: 0.5px solid rgb(5, 219, 191);
+  border-radius: 10px;
+  background-color: #fff;
+  color: black;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #000;
+  color: antiquewhite;
+}
