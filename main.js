@@ -1,6 +1,6 @@
 "use strict";
 window.addEventListener("DOMContentLoaded", init);
-let bloodArray = {};
+let bloodArray = [];
 let allStudents = [];
 let halfArray = [];
 
@@ -32,6 +32,7 @@ function fetchFamilyList() {
     .then((bloods) => {
       bloodArray = bloods;
       halfArray = bloods.half.map((x) => x);
+      halfArray.push(bloods.half);
     });
 }
 function prepareObjects(jsonData) {
@@ -221,10 +222,17 @@ function showStudent(student) {
       image.style.display = "none";
     }
     modal.classList.remove("hide");
+    //Change Blood
+    let blood = modal.querySelector(".modal-blood");
+    halfArray.includes(student.lastname)
+      ? (blood.textContent = "Half Blood")
+      : (blood.textContent = "Pure Blood");
+    console.log(halfArray);
+    console.log(student.lastname);
+
     return fullname;
   }
   modal.querySelector(".modal-blood").textContent = `${student.blood}`;
-  console.log(student.blood);
 
   document.querySelector(".grid").appendChild(copy);
 }
