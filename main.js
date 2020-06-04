@@ -81,17 +81,17 @@ function preapareObject(jsonObject) {
   } else if (!noOfSpaces == 0) {
     student.firstname =
       letter[0].toUpperCase() + letter.substring(1, -1).toLowerCase();
-  }
-  if (letter.search("-") == true) {
-    student.lastname = letter.substring(letter.lastIndexOf("-") + 1);
-    student.lastname[0].toUpperCase() +
-      student.lastname.substring(1, -1).toLowerCase();
-    student.middlename = letter.substring(
-      letter.indexOf(" ") + 1,
-      letter.lastIndexOf("-")
-    );
-    student.middlename[0].toUpperCase() +
-      student.middlename.substring(1, -1).toLowerCase();
+    if (letter.includes("-")) {
+      student.firstname =
+        letter.substring(0, letter.indexOf(" "))[0].toUpperCase() +
+        letter.substring(1, letter.indexOf(" ")).toLowerCase();
+
+      student.middlename = letter.substring(
+        letter.indexOf(" "),
+        letter.indexOf("-")
+      );
+    }
+    student.lastname = letter.substring(letter.indexOf("-"));
   } else {
     student.lastname = letter.substring(letter.lastIndexOf(" ") + 1);
     student.lastname[0].toUpperCase() +
@@ -189,7 +189,11 @@ function showStudent(student) {
     logo.src = "imgs/" + students.house.toLowerCase() + ".jpg";
     let image = modal.querySelector("img.student-image");
 
-    if (!student.lastname == "" && !student.lastname == "Patil") {
+    if (
+      student.lastname !== "" &&
+      student.lastname !== "Patil" &&
+      !student.lastname.includes("-")
+    ) {
       image.src =
         "images/" +
         student.lastname.toLowerCase() +
@@ -202,6 +206,16 @@ function showStudent(student) {
         student.lastname.toLowerCase() +
         "_" +
         student.firstname.toLowerCase() +
+        ".png";
+    } else if (student.lastname.includes("-")) {
+      console.log("hypen");
+      image.src =
+        "images/" +
+        student.lastname
+          .substring(student.lastname.indexOf("-") + 1)
+          .toLowerCase() +
+        "_" +
+        student.firstname[0].toLowerCase() +
         ".png";
     } else {
       image.style.display = "none";
