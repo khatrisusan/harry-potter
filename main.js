@@ -4,6 +4,8 @@ let bloodArray = [];
 let allStudents = [];
 let halfArray = [];
 let expelledArray = [];
+let inquisitorialArray = [];
+let prefectsArray = [];
 let hack = false;
 
 let filterValue;
@@ -17,6 +19,7 @@ const Student = {
   photo: "",
   house: "",
   blood: "",
+  gender: "",
   expelled: false,
   prefect: false,
   club: false,
@@ -60,7 +63,13 @@ function buildList() {
   document
     .querySelector("[data-field=filter]")
     .addEventListener("change", doFilter);
+  document.querySelector(".search").addEventListener("keyup", doSearch);
 }
+
+function doSearch(e) {
+  console.log(e.target.value);
+}
+
 function doSort(e, currentList) {
   console.log(e.target.value);
   if (e.target.value == "First Name") {
@@ -84,19 +93,31 @@ function doSort(e, currentList) {
   displayList(currentList);
 }
 function doFilter(e, currentList) {
-  if (e.target.value == "Gryffindor") {
+  if (e.target.value === "Gryffindor") {
     currentList = allStudents.filter((e) => e.house === "Gryffindor");
+    displayList(currentList);
   }
-  if (e.target.value == "Slytherin") {
+  if (e.target.value === "Slytherin") {
     currentList = allStudents.filter((e) => e.house === "Slytherin");
+    displayList(currentList);
   }
-  if (e.target.value == "Ravenclaw") {
+  if (e.target.value === "Ravenclaw") {
     currentList = allStudents.filter((e) => e.house === "Ravenclaw");
+    displayList(currentList);
   }
-  if (e.target.value == "Hufflepuff") {
+  if (e.target.value === "Hufflepuff") {
     currentList = allStudents.filter((e) => e.house === "Hufflepuff");
+    displayList(currentList);
   }
-  displayList(currentList);
+  if (e.target.value === "Expelled") {
+    displayList(expelledArray);
+  }
+  if (e.target.value === "Prefects") {
+    displayList(prefectsArray);
+  }
+  if (e.target.value === "Inquisitorial") {
+    displayList(inquisitorialArray);
+  }
 }
 function preapareObject(jsonObject) {
   const student = Object.create(Student);
@@ -282,11 +303,32 @@ function showStudent(student) {
     //Change Blood
     let blood = modal.querySelector(".modal-blood");
     blood.textContent = `${student.blood} Blood`;
-    modal.querySelector(".expel").addEventListener("click", doExpel);
+    //Expel
+    modal.querySelector(".expel").addEventListener("click", (e) => {
+      console.log(student);
+      expelledArray.push(student);
+      const index = allStudents.indexOf(student);
+      console.log(index);
+      allStudents.splice(index, 1);
+      displayList(allStudents);
+    });
 
-    function doExpel(e, name) {
-      console.log(name);
-    }
+    //Inquisitorial
+    modal.querySelector(".inquis").addEventListener("click", (e) => {
+      if ((e.target.innerHTML = "Add to Inquisitorial")) {
+        inquisitorialArray.push(student);
+        e.target.innerHTML = "Remove from Inquis";
+      }
+      if ((e.target.innerHTML = "Remove from Inquis")) {
+        e.target.innerHTML = "Add to Inquisitorial";
+        //remove from inquis
+      }
+    });
+
+    //Prefects
+    modal.querySelector(".prefect").addEventListener("click", (e) => {
+      inquisitorialArray.push(student);
+    });
 
     return fullname;
   }
@@ -303,6 +345,7 @@ function hackTheSystem() {
     middlename: "",
     lastname: "Khatri",
     nickname: "",
+    gender: "Boy",
     photo: "",
     house: "Slytherin",
     blood: "Pure",
@@ -311,14 +354,18 @@ function hackTheSystem() {
     club: false,
   };
   allStudents.push(me);
-  displayList();
-}
-if (hack) {
-  //couldn't expel
-  //set random blood
-  //toggle add to inquiostorial
-}
+  displayList(allStudents);
 
+  if (hack == true) {
+    console.log([...document.querySelectorAll("button.expel")]);
+    //couldn't expel
+    /*  Array.from(document.querySelectorAll("button.expel"))[
+      allStudents.length
+    ].style.display = "none"; */
+    //set random blood
+    //toggle add to inquiostorial
+  }
+}
 //prefects
 //max 2 from same house
 
