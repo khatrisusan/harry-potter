@@ -123,8 +123,10 @@ img.crest-image {
   height: auto;
 }
 .wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 button {
   padding: 4px 8px;
@@ -137,4 +139,9 @@ button:hover {
   cursor: pointer;
   background-color: #000;
   color: antiquewhite;
+}
+/* img */
+.student-image {
+  height: 107px;
+  width: 114px;
 }

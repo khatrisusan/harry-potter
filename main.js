@@ -4,6 +4,9 @@ let bloodArray = [];
 let allStudents = [];
 let halfArray = [];
 
+let filterValue;
+let sortValue;
+
 const Student = {
   firstname: "",
   middlename: "",
@@ -44,8 +47,36 @@ function prepareObjects(jsonData) {
 // when loaded, prepare data objects
 
 function buildList() {
-  const currentList = allStudents; // FUTURE: Filter and sort currentList before displaying
+  let currentList = allStudents; // FUTURE: Filter and sort currentList before displaying
+  displayList(currentList);
+  document
+    .querySelector("[data-field=filter]")
+    .addEventListener("change", halfStart);
+  document
+    .querySelector("[data-field=sort]")
+    .addEventListener("change", halfStart);
+}
+function halfStart(e, currentList) {
+  console.log(e.target.value);
+  if (e.target.value == "First Name") {
+    console.log("should sort by FName");
+    currentList = allStudents.sort();
+    console.log(currentList);
+  } else if (e.target.value == "Last Name") {
+    console.log("should sort by LName");
+    /* let roots = numbers.map(function(num) {
+    return Math.sqrt(num) */
 
+    currentList = allStudents.map((student) => student.lastname).sort();
+    console.log(currentList);
+    //currentList = allStudents.sort();
+  }
+  if (e.target.value == "House") {
+    console.log("should sort by house");
+  }
+  if (e.target.value == "Blood") {
+    console.log("should sort by blood");
+  }
   displayList(currentList);
 }
 function preapareObject(jsonObject) {
@@ -219,7 +250,7 @@ function showStudent(student) {
         student.firstname[0].toLowerCase() +
         ".png";
     } else {
-      image.style.display = "none";
+      image.src = "images/no_img.png";
     }
     modal.classList.remove("hide");
     //Change Blood
