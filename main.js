@@ -129,23 +129,16 @@ function preapareObject(jsonObject) {
     student.lastname[0].toUpperCase() +
       student.lastname.substring(1, -1).toLowerCase();
     student.middlename = letter[letter.indexOf(" ") + 1].toUpperCase();
-    halfArray.forEach((element) => {
+    /* halfArray.forEach((element) => {
       console.log(element);
-      if (element == student.lastname) {
-        student.blood == "pure";
+      if (element.includes(student.lastname)) {
+        student.blood == "half";
       } else student.blood == "pure";
-    });
+    }) */
   }
-  /*   let LName = letter
-      .substring(letter.lastIndexOf(" ") + 1)[0]
-      .toUpperCase()
-      .substring(1, -1)
-      .toLowerCase();
-    if (halfArray.includes(LName)) {
-      student.blood = "half";
-    } else {
-      student.blood = "pur";
-    } */
+  /* halfArray.includes(student.lastname)
+    ? (student.blood = "Half")
+    : (student.blood = "Pure"); */
 
   if (noOfSpaces == 1) {
     student.middlename = "";
@@ -174,6 +167,19 @@ function preapareObject(jsonObject) {
         .toLowerCase();
   }
 
+  /* student.lastname.forEach((element) => {
+    halfArray.includes(element)
+      ? (student.blood = "Half")
+      : console.log(student.lastname);
+  });
+ */
+  student.blood = setBloodStatus(student.lastName, student.house);
+  function setBloodStatus(lastName, house) {
+    if (house === "Slytherin") return "Pure";
+    const result = halfArray.includes(student.lastname);
+    if (result == undefined) return "Pure";
+    else return "Half";
+  }
   return student;
 }
 
@@ -255,11 +261,7 @@ function showStudent(student) {
     modal.classList.remove("hide");
     //Change Blood
     let blood = modal.querySelector(".modal-blood");
-    halfArray.includes(student.lastname)
-      ? (blood.textContent = "Half Blood")
-      : (blood.textContent = "Pure Blood");
-    console.log(halfArray);
-    console.log(student.lastname);
+    blood.textContent = `${student.blood} Blood`;
 
     return fullname;
   }
