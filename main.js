@@ -3,6 +3,8 @@ window.addEventListener("DOMContentLoaded", init);
 let bloodArray = [];
 let allStudents = [];
 let halfArray = [];
+let expelledArray = [];
+let hack = false;
 
 let filterValue;
 let sortValue;
@@ -15,6 +17,9 @@ const Student = {
   photo: "",
   house: "",
   blood: "",
+  expelled: false,
+  prefect: false,
+  club: false,
 };
 
 function init() {
@@ -50,32 +55,46 @@ function buildList() {
   let currentList = allStudents; // FUTURE: Filter and sort currentList before displaying
   displayList(currentList);
   document
-    .querySelector("[data-field=filter]")
-    .addEventListener("change", halfStart);
-  document
     .querySelector("[data-field=sort]")
-    .addEventListener("change", halfStart);
+    .addEventListener("change", doSort);
+  document
+    .querySelector("[data-field=filter]")
+    .addEventListener("change", doFilter);
 }
-function halfStart(e, currentList) {
+function doSort(e, currentList) {
   console.log(e.target.value);
   if (e.target.value == "First Name") {
-    console.log("should sort by FName");
-    currentList = allStudents.sort();
+    currentList = allStudents.sort((a, b) =>
+      a.firstname > b.firstname ? 1 : -1
+    );
     console.log(currentList);
   } else if (e.target.value == "Last Name") {
     console.log("should sort by LName");
-    /* let roots = numbers.map(function(num) {
-    return Math.sqrt(num) */
 
-    currentList = allStudents.map((student) => student.lastname).sort();
+    currentList = allStudents.sort((a, b) =>
+      a.lastname > b.lastname ? 1 : -1
+    );
     console.log(currentList);
-    //currentList = allStudents.sort();
+  } else if (e.target.value == "House") {
+    currentList = allStudents.sort((a, b) => (a.blood > b.blood ? 1 : -1));
+  } else if (e.target.value == "Blood") {
+    currentList = allStudents.sort((a, b) => (a.blood > b.blood ? 1 : -1));
   }
-  if (e.target.value == "House") {
-    console.log("should sort by house");
+
+  displayList(currentList);
+}
+function doFilter(e, currentList) {
+  if (e.target.value == "Gryffindor") {
+    currentList = allStudents.filter((e) => e.house === "Gryffindor");
   }
-  if (e.target.value == "Blood") {
-    console.log("should sort by blood");
+  if (e.target.value == "Slytherin") {
+    currentList = allStudents.filter((e) => e.house === "Slytherin");
+  }
+  if (e.target.value == "Ravenclaw") {
+    currentList = allStudents.filter((e) => e.house === "Ravenclaw");
+  }
+  if (e.target.value == "Hufflepuff") {
+    currentList = allStudents.filter((e) => e.house === "Hufflepuff");
   }
   displayList(currentList);
 }
@@ -185,13 +204,14 @@ function preapareObject(jsonObject) {
 
 function displayList(student) {
   // clear the display
-  //document.querySelector("main").innerHTML = "";
+  document.querySelector(".grid").innerHTML =
+    "<span><strong>Full Name</strong></span><span>  <strong>House</strong></span><span>  <strong>See More</strong></span>";
 
   // build a new list
   student.forEach(showStudent);
 }
 function showStudent(student) {
-  console.log(student);
+  console.log(student.lastname);
   let template = document.querySelector("template.table").content;
   const copy = template.cloneNode(true);
   copy.querySelector(
@@ -226,7 +246,7 @@ function showStudent(student) {
     let logo = modal.querySelector("img.crest-image");
     logo.src = "imgs/" + students.house.toLowerCase() + ".jpg";
     let image = modal.querySelector("img.student-image");
-
+    //set Image
     if (
       student.lastname !== "" &&
       student.lastname !== "Patil" &&
@@ -262,6 +282,11 @@ function showStudent(student) {
     //Change Blood
     let blood = modal.querySelector(".modal-blood");
     blood.textContent = `${student.blood} Blood`;
+    modal.querySelector(".expel").addEventListener("click", doExpel);
+
+    function doExpel(e, name) {
+      console.log(name);
+    }
 
     return fullname;
   }
@@ -269,3 +294,36 @@ function showStudent(student) {
 
   document.querySelector(".grid").appendChild(copy);
 }
+//hack
+
+function hackTheSystem() {
+  hack = true;
+  const me = {
+    firstname: "Susan",
+    middlename: "",
+    lastname: "Khatri",
+    nickname: "",
+    photo: "",
+    house: "Slytherin",
+    blood: "Pure",
+    expelled: false,
+    prefect: false,
+    club: false,
+  };
+  allStudents.push(me);
+  displayList();
+}
+if (hack) {
+  //couldn't expel
+  //set random blood
+  //toggle add to inquiostorial
+}
+
+//prefects
+//max 2 from same house
+
+//expelling stds
+//remove from list and adds to expelArray
+
+//Add to inquiostorial
+/* only pure-blood or students from Slytherin. */

@@ -38,12 +38,13 @@
       <div class="sort">
         <label for="sort">Sort by:</label>
         <select name="sort" data-field="sort">
-          <option data-field="firstName">First Name</option>
+          <option data-field="firstName default">First Name</option>
           <option data-field="lastName">Last Name</option>
           <option data-field="house">House</option>
           <option data-field="blood">Blood</option>
         </select>
       </div>
+      <div class="search"><input name="search" /></div>
       <div class="filter">
         <label for="filter">Filter by:</label>
         <select name="filter" data-field="filter" data-filter="All">
@@ -69,20 +70,19 @@
         <span>
           <strong>See More</strong>
         </span>
-
-        <template class="table">
-          <span class="cloneName"></span>
-          <span class="cloneHouse"></span>
-          <span class="cloneSeeMore">
-            <button class="detail-btn">Details</button>
-          </span>
-        </template>
       </div>
     </main>
     <footer>
       ©Susan Khatri 2020
     </footer>
 
+    <template class="table">
+      <span class="cloneName"></span>
+      <span class="cloneHouse"></span>
+      <span class="cloneSeeMore">
+        <button class="detail-btn">Details</button>
+      </span>
+    </template>
     <!-- MODAL -->
     <div class="modal-background hide">
       <div class="modal-content" data-theme="">
